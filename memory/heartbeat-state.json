@@ -1,0 +1,58 @@
+{
+  "lastHeartbeat": 1776792000,
+  "timestamp": "2026-04-21T16:40 UTC",
+  "harness": "Harness 1 (Nanachi/OpenClaw)",
+  "factoryStatus": {
+    "ceo": "Active",
+    "cto": "Available (sub-agent)",
+    "cmo": "Available (sub-agent)"
+  },
+  "crons": {
+    "CEO Daily Status Report": {
+      "nextRun": "09:00 UTC daily",
+      "status": "active"
+    },
+    "CEO Self-Reflection": {
+      "nextRun": "every 4h",
+      "status": "active"
+    },
+    "Memory Dreaming Promotion": {
+      "nextRun": "03:00 UTC daily",
+      "status": "active"
+    }
+  },
+  "db": {
+    "projects": 29,
+    "activeProjects": 25,
+    "channels": 8,
+    "agents": 4
+  },
+  "pendingTasks": [
+    "Hermes CEO (Nezuko) \u2014 needs daily report cron in hermes-agent-deploy",
+    "Rick (Harness 3) \u2014 not deployed",
+    "mem0 \u2014 self-hosted, not configured"
+  ],
+  "blockers": [
+    "hermes-agent-deploy not updated with shared workspace repos",
+    "startup-factory workspace not in expected location (git reset cleared it)"
+  ],
+  "urgentItems": [
+    "PR Workflow broken \u2014 workspace sync failing (non-fast-forward push)",
+    "Startup Factory Launch Verification cron failing \u2014 removed stale cron"
+  ],
+  "managedServices": {
+    "Hetzner/Coolify": "https://qed.quest/",
+    "GitHub": "https://github.com/nanachichan3",
+    "NanachiDB (Postgres)": "projects DB on pg-nanachi",
+    "Bitwarden": "19 secrets (unlocked via BW_MATER_PASSWORD env)"
+  },
+  "bitwarden": {
+    "total_items": 19,
+    "categories": {
+      "API Keys": 7,
+      "Other": 8,
+      "AI Services": 2,
+      "Git/Code": 2
+    }
+  }
+}
