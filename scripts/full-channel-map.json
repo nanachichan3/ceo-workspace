@@ -1,0 +1,89 @@
+{
+  "projects": {
+    "9": {
+      "title": "Self-Degree",
+      "general": "1496980098371420200",
+      "dev": "1484963402555199498",
+      "marketing": "1496980100577624117",
+      "social": "1496980100577624117",
+      "social_media": null
+    },
+    "12": {
+      "title": "Yev's Personal Brand",
+      "general": "1496994139810566308",
+      "dev": "1496994154138304554",
+      "marketing": "1496991150890942578",
+      "social": null,
+      "social_media": "1496994148232724676"
+    },
+    "15": {
+      "title": "DnDate",
+      "general": "1496994111801262205",
+      "dev": "1485514034227712061",
+      "marketing": "1496994091630592111",
+      "social": "1496994091630592111",
+      "social_media": null
+    },
+    "16": {
+      "title": "SOCOS CRM",
+      "general": "1496980090775666860",
+      "dev": "1496980092130295828",
+      "marketing": "1496980093204037776",
+      "social": "1496980093204037776",
+      "social_media": null
+    },
+    "27": {
+      "title": "Chef Rachkovan",
+      "general": "1496994163109920929",
+      "dev": "1489594856371130449",
+      "marketing": "1496994166796714134",
+      "social": "1496994166796714134",
+      "social_media": null
+    },
+    "28": {
+      "title": "Viewpulse",
+      "general": "1496994104993779844",
+      "dev": "1496984581562302614",
+      "marketing": "1496984582950486057",
+      "social": "1496984582950486057",
+      "social_media": null
+    },
+    "29": {
+      "title": "Unvibe",
+      "general": "1496994115382939831",
+      "dev": "1496994119543816212",
+      "marketing": "1496980097381699765",
+      "social": "1496980097381699765",
+      "social_media": null
+    }
+  },
+  "personal_channels": {
+    "biography_framework": "1493545994904928287",
+    "startup_factory_framework": "1493546097728163920",
+    "social_media": "1484964706920697987",
+    "research": "1484965108940542195",
+    "assistant": "1484964875125133415",
+    "experiments": "1488623502339604743",
+    "self_degree_book": "1493545940152221726",
+    "life_to_remember_book": "1493545994904928287"
+  },
+  "self_dev": {
+    "ai": "1496980075852337163",
+    "future_of_education": "1496980076997247086",
+    "gamification": "1496980077567807503",
+    "buddhism": "1496980079404781790",
+    "biohacking": "1496980080885235906",
+    "open_source": "1496980083389239337",
+    "digital_nomading": "1496980085209563256"
+  },
+  "crm": {
+    "personal_channel": "1496991114748493967"
+  },
+  "chef_rachkovan": {
+    "category_id": "1489594832388231208",
+    "general": "1496994163109920929",
+    "dev": "1489594856371130449",
+    "marketing": "1496994166796714134",
+    "social": "1496994170676445356"
+  }
+}
