@@ -1,8 +1,12 @@
 {
-  "framework_channel_id": "1496990931470254100",
   "self_degree_project_id": 9,
   "self_degree_category_id": "1484900592093761657",
   "self_degree_general_channel_id": "1496980098371420200",
-  "self_degree_dev_channel_id": "1484963402555199498",
-  "self_degree_social_channel_id": "1496980100577624117"
+  "self_degree_dev_channel_id": "1496980099772186664",
+  "self_degree_marketing_channel_id": "1496980100577624117",
+  "research_channel_id": "1484964258419708035",
+  "product_channel_id": "1484963440849064058",
+  "tutor_sales_channel_id": "1484963334859259924",
+  "student_sales_channel_id": "1484963357344792658",
+  "directory_entry_channel_id": "1484964318549381230"
 }
