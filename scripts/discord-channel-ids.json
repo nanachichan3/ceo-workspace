@@ -1,0 +1,34 @@
+{
+  "14": {
+    "project_id": 14,
+    "project_name": "Self-Degree",
+    "discord_category_id": "1496976985144955071",
+    "discord_channel_id": "1496976986005049397",
+    "discord_dev_channel_id": "1496976987451822141",
+    "discord_social_channel_id": "1496976988802519130"
+  },
+  "15": {
+    "project_id": 15,
+    "project_name": "DnDate",
+    "discord_category_id": "1496976985144955071",
+    "discord_channel_id": "1496976989876387951",
+    "discord_dev_channel_id": "1496976990924701816",
+    "discord_social_channel_id": "1496976991927144539"
+  },
+  "16": {
+    "project_id": 16,
+    "project_name": "SOCOS CRM",
+    "discord_category_id": "1496976985144955071",
+    "discord_channel_id": "1496976993068257401",
+    "discord_dev_channel_id": "1496976994053918891",
+    "discord_social_channel_id": "1496976995228324021"
+  },
+  "29": {
+    "project_id": 29,
+    "project_name": "Unvibe",
+    "discord_category_id": "1496976985144955071",
+    "discord_channel_id": "1496976996419244032",
+    "discord_dev_channel_id": "1496976997782388766",
+    "discord_social_channel_id": "1496976998822838492"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "self_development": {
+    "category_id": "1496980074547904615",
+    "channels": {
+      "ai": "1496980101701566608",
+      "future_of_education": null,
+      "future_of_education_id": "🎓 future-of-education",
+      "gamification": null,
+      "buddhism": null,
+      "biohacking": null,
+      "open_source": null,
+      "digital_nomading": null
+    }
+  },
+  "projects": {
+    "14": {
+      "name": "Self-Degree",
+      "category_id": "1484900592093761657",
+      "general_id": "1496980098371420200",
+      "dev_id": "1484963402555199498",
+      "social_id": "1496980100577624117"
+    },
+    "15": {
+      "name": "DnDate",
+      "category_id": "1484900894280781944",
+      "general_id": "1496980086216327209",
+      "dev_id": "1485514034227712061",
+      "social_id": "1496980087524823094"
+    },
+    "16": {
+      "name": "SOCOS CRM",
+      "category_id": "1488926184497745961",
+      "general_id": "1496980090775666860",
+      "dev_id": "1496980092130295828",
+      "social_id": "1496980093204037776"
+    },
+    "29": {
+      "name": "Unvibe",
+      "category_id": "1493543617296597002",
+      "general_id": "1496980094655135958",
+      "dev_id": "1496980096001507398",
+      "social_id": "1496980097381699765"
+    }
+  }
+}
