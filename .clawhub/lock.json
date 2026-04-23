@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "skills": {
+    "openclaw-mem0": {
+      "version": "1.0.2",
+      "installedAt": 1776963837193
+    },
+    "mem0-status-check": {
+      "version": "1.0.0",
+      "installedAt": 1776963839344
+    }
+  }
+}
