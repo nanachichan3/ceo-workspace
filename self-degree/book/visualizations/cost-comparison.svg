@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <title>Cost Comparison</title>
+  <desc>Bar chart comparing costs of different educational pathways</desc>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="#f5f0e8"/>
+
+  <!-- Title -->
+  <text x="400" y="45" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="700" fill="#0d1b2a">Cost Comparison</text>
+
+  <!-- Y-axis -->
+  <line x1="100" y1="80" x2="100" y2="400" stroke="#0d1b2a" stroke-width="2"/>
+
+  <!-- Y-axis labels -->
+  <text x="90" y="405" text-anchor="end" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#0d1b2a">$0</text>
+  <text x="90" y="330" text-anchor="end" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#0d1b2a">$40K</text>
+  <text x="90" y="255" text-anchor="end" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#0d1b2a">$80K</text>
+  <text x="90" y="180" text-anchor="end" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#0d1b2a">$120K</text>
+  <text x="90" y="105" text-anchor="end" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#0d1b2a">$160K</text>
+
+  <!-- Y-axis grid lines -->
+  <g stroke="#0d1b2a" stroke-width="1" stroke-dasharray="4,4" opacity="0.2">
+    <line x1="100" y1="330" x2="700" y2="330"/>
+    <line x1="100" y1="255" x2="700" y2="255"/>
+    <line x1="100" y1="180" x2="700" y2="180"/>
+    <line x1="100" y1="105" x2="700" y2="105"/>
+  </g>
+
+  <!-- X-axis -->
+  <line x1="100" y1="400" x2="700" y2="400" stroke="#0d1b2a" stroke-width="2"/>
+
+  <!-- Y-axis title -->
+  <text x="40" y="240" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#0d1b2a" transform="rotate(-90, 40, 240)">Cost (USD)</text>
+
+  <!-- Bars -->
+  <!-- Traditional 4-Year Degree: $150,000 - tallest, navy -->
+  <rect x="140" y="111" width="100" height="289" fill="#0d1b2a" rx="4"/>
+  <text x="190" y="105" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#0d1b2a">$150,000</text>
+
+  <!-- Self-Degree Framework: ~$14,000 - medium, gold -->
+  <rect x="280" y="373" width="100" height="27" fill="#c9a84c" rx="4"/>
+  <text x="330" y="367" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#c9a84c">~$14,000</text>
+
+  <!-- Community College: $30,000 - short bar, gray -->
+  <rect x="420" y="342" width="100" height="58" fill="#7a7a7a" rx="4"/>
+  <text x="470" y="336" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#7a7a7a">$30,000</text>
+
+  <!-- Bootcamp: $17,500 average - medium, gray -->
+  <rect x="560" y="366" width="100" height="34" fill="#7a7a7a" rx="4"/>
+  <text x="610" y="360" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#7a7a7a">$15-20K</text>
+
+  <!-- X-axis labels -->
+  <text x="190" y="425" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#0d1b2a">Traditional</text>
+  <text x="190" y="440" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#0d1b2a">4-Year Degree</text>
+
+  <text x="330" y="425" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#c9a84c">Self-Degree</text>
+  <text x="330" y="440" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#c9a84c">Framework</text>
+
+  <text x="470" y="425" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#7a7a7a">Community</text>
+  <text x="470" y="440" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#7a7a7a">College</text>
+
+  <text x="610" y="425" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#7a7a7a">Coding</text>
+  <text x="610" y="440" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#7a7a7a">Bootcamp</text>
+
+  <!-- Source note -->
+  <text x="700" y="485" text-anchor="end" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#0d1b2a" opacity="0.6">2025 averages</text>
+</svg>
