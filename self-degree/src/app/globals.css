@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --navy-900: #0d1b2a;
+  --gold-500: #c9a84c;
+}
+
+@layer base {
+  body {
+    @apply bg-navy-900 text-white antialiased;
+  }
+}
