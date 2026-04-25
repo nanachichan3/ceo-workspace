@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <title>The Self-Degree Sprint Cycle</title>
+  <desc>Circular diagram showing the four-stage iterative cycle: Research, Ship, Reflect, Repeat</desc>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="#f5f0e8"/>
+
+  <!-- Title -->
+  <text x="400" y="45" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="700" fill="#0d1b2a">The Self-Degree Sprint Cycle</text>
+
+  <!-- Outer decorative circles -->
+  <circle cx="400" cy="260" r="185" fill="none" stroke="#0d1b2a" stroke-width="1" opacity="0.15" stroke-dasharray="6,4"/>
+  <circle cx="400" cy="260" r="165" fill="none" stroke="#0d1b2a" stroke-width="1" opacity="0.1"/>
+
+  <!-- Center circle with Self-Degree Sprint -->
+  <circle cx="400" cy="260" r="55" fill="#0d1b2a"/>
+  <text x="400" y="255" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#f5f0e8">Self-Degree</text>
+  <text x="400" y="272" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#c9a84c">Sprint</text>
+
+  <!-- Cycle arc arrows (clockwise) -->
+  <!-- Arrow from Research to Ship (top to right) -->
+  <path d="M435,135 A130,130 0 0,1 535,175" fill="none" stroke="#c9a84c" stroke-width="3" stroke-linecap="round" marker-end="url(#cycleArrow)"/>
+
+  <!-- Arrow from Ship to Reflect (right to bottom) -->
+  <path d="M555,325 A130,130 0 0,1 485,405" fill="none" stroke="#c9a84c" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Arrow from Reflect to Repeat (bottom to left) -->
+  <path d="M305,405 A130,130 0 0,1 205,335" fill="none" stroke="#c9a84c" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Arrow from Repeat to Research (left to top) -->
+  <path d="M155,195 A130,130 0 0,1 245,115" fill="none" stroke="#c9a84c" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="cycleArrow" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#c9a84c"/>
+    </marker>
+  </defs>
+
+  <!-- Stage 1: Research (top) - GOLD -->
+  <g transform="translate(400, 100)">
+    <circle cx="0" cy="0" r="45" fill="#c9a84c"/>
+    <!-- Magnifying glass icon -->
+    <circle cx="0" cy="-5" r="18" fill="none" stroke="#0d1b2a" stroke-width="3"/>
+    <line x1="12" y1="12" x2="22" y2="22" stroke="#0d1b2a" stroke-width="3" stroke-linecap="round"/>
+    <!-- Label -->
+    <text x="0" y="70" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="700" fill="#c9a84c">Research</text>
+    <text x="0" y="88" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">Explore interests,</text>
+    <text x="0" y="102" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">assess learning style</text>
+  </g>
+
+  <!-- Stage 2: Ship (right) - GOLD -->
+  <g transform="translate(585, 260)">
+    <circle cx="0" cy="0" r="45" fill="#c9a84c"/>
+    <!-- Rocket icon -->
+    <path d="M0,-22 Q10,-15 10,0 Q10,15 0,22 L-8,15 L0,20 L8,15 Z" fill="#0d1b2a"/>
+    <circle cx="-5" cy="8" r="3" fill="#c9a84c"/>
+    <circle cx="5" cy="8" r="3" fill="#c9a84c"/>
+    <!-- Label -->
+    <text x="0" y="70" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="700" fill="#c9a84c">Ship</text>
+    <text x="0" y="88" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">Build projects,</text>
+    <text x="0" y="102" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">demonstrate skills</text>
+  </g>
+
+  <!-- Stage 3: Reflect (bottom) - GOLD -->
+  <g transform="translate(400, 420)">
+    <circle cx="0" cy="0" r="45" fill="#c9a84c"/>
+    <!-- Mirror/Review icon -->
+    <ellipse cx="0" cy="-5" rx="15" ry="20" fill="none" stroke="#0d1b2a" stroke-width="3"/>
+    <line x1="-10" y1="5" x2="10" y2="5" stroke="#0d1b2a" stroke-width="2"/>
+    <line x1="-7" y1="12" x2="7" y2="12" stroke="#0d1b2a" stroke-width="2"/>
+    <!-- Label -->
+    <text x="0" y="70" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="700" fill="#c9a84c">Reflect</text>
+    <text x="0" y="88" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">Review progress,</text>
+    <text x="0" y="102" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">adjust direction</text>
+  </g>
+
+  <!-- Stage 4: Repeat (left) - GOLD -->
+  <g transform="translate(215, 260)">
+    <circle cx="0" cy="0" r="45" fill="#c9a84c"/>
+    <!-- Circular arrows icon -->
+    <path d="M-15,-5 A17,17 0 1,1 5,-15" fill="none" stroke="#0d1b2a" stroke-width="3" stroke-linecap="round"/>
+    <polygon points="5,-18 -2,-12 -2,-22" fill="#0d1b2a"/>
+    <path d="M15,5 A17,17 0 1,1 -5,15" fill="none" stroke="#0d1b2a" stroke-width="3" stroke-linecap="round"/>
+    <polygon points="-5,18 2,12 2,22" fill="#0d1b2a"/>
+    <!-- Label -->
+    <text x="0" y="70" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="700" fill="#c9a84c">Repeat</text>
+    <text x="0" y="88" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">Go deeper,</text>
+    <text x="0" y="102" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">expand network</text>
+  </g>
+
+  <!-- Clockwise indicator -->
+  <text x="720" y="470" text-anchor="end" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a" opacity="0.5">Clockwise iteration</text>
+</svg>

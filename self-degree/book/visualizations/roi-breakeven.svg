@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <title>Investment Breakeven Timeline</title>
+  <desc>Line chart showing cumulative earnings minus cost over time for different educational pathways</desc>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="#f5f0e8"/>
+
+  <!-- Title -->
+  <text x="400" y="45" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="700" fill="#0d1b2a">Investment Breakeven Timeline</text>
+
+  <!-- Y-axis -->
+  <line x1="100" y1="80" x2="100" y2="420" stroke="#0d1b2a" stroke-width="2"/>
+
+  <!-- Y-axis labels -->
+  <text x="90" y="425" text-anchor="end" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">-$150K</text>
+  <text x="90" y="305" text-anchor="end" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">-$75K</text>
+  <text x="90" y="185" text-anchor="end" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">$0</text>
+  <text x="90" y="65" text-anchor="end" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">+$150K</text>
+
+  <!-- Y-axis grid lines -->
+  <g stroke="#0d1b2a" stroke-width="1" stroke-dasharray="4,4" opacity="0.2">
+    <line x1="100" y1="305" x2="720" y2="305"/>
+    <line x1="100" y1="185" x2="720" y2="185"/>
+  </g>
+
+  <!-- X-axis -->
+  <line x1="100" y1="420" x2="720" y2="420" stroke="#0d1b2a" stroke-width="2"/>
+
+  <!-- Breakeven line (y=0) -->
+  <line x1="100" y1="185" x2="720" y2="185" stroke="#0d1b2a" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="725" y="190" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#0d1b2a" opacity="0.6">Breakeven</text>
+
+  <!-- X-axis labels -->
+  <text x="100" y="445" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">0</text>
+  <text x="170" y="445" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">2</text>
+  <text x="240" y="445" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">4</text>
+  <text x="310" y="445" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">6</text>
+  <text x="380" y="445" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">8</text>
+  <text x="450" y="445" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">10</text>
+  <text x="520" y="445" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">12</text>
+  <text x="590" y="445" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">14</text>
+  <text x="660" y="445" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">15</text>
+
+  <!-- X-axis title -->
+  <text x="410" y="475" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#0d1b2a">Years After Graduation</text>
+
+  <!-- Y-axis title -->
+  <text x="40" y="250" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#0d1b2a" transform="rotate(-90, 40, 250)">Cumulative Earnings − Costs ($)</text>
+
+  <!-- Blue line: 4-Year Degree (-$150K, crosses at ~11 years) -->
+  <!-- y scales: $300K range = 340px height, so $1 per pixel roughly -->
+  <!-- Start: year 0, -$150K = y 305 (185 + 120) -->
+  <!-- End: year 15, +$150K = y 65 (185 - 120) -->
+  <polyline points="100,305 140,285 170,260 200,230 240,195 310,195 380,175 450,155 520,135 590,115 660,95 690,80"
+            fill="none" stroke="#2563eb" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Breakeven point for 4-Year Degree (~year 11) -->
+  <circle cx="492" cy="185" r="6" fill="#2563eb"/>
+  <text x="492" y="175" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#2563eb" font-weight="700">~Year 11</text>
+
+  <!-- Gold line: Self-Degree (-$14K, crosses at ~1.5 years) -->
+  <!-- Start: year 0, -$14K = y 209 (185 + 24) -->
+  <!-- End: year 15, +$136K = y 49 -->
+  <polyline points="100,209 115,195 140,185 170,165 200,145 240,125 310,105 380,85 450,65 520,50 590,40 660,30 690,25"
+            fill="none" stroke="#c9a84c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Breakeven point for Self-Degree (~year 1.5) -->
+  <circle cx="135" cy="185" r="6" fill="#c9a84c"/>
+  <text x="135" y="175" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#c9a84c" font-weight="700">~Year 1-2</text>
+
+  <!-- Green line: Coding Bootcamp (-$18K, crosses at ~1.5 years) -->
+  <!-- Start: year 0, -$18K = y 213 (185 + 28) -->
+  <polyline points="100,213 115,200 140,185 170,160 200,135 240,110 310,90 380,70 450,55 520,45 590,35 660,30 690,25"
+            fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Breakeven point for Bootcamp (~year 1.5) -->
+  <circle cx="140" cy="185" r="6" fill="#16a34a"/>
+
+  <!-- Legend -->
+  <g transform="translate(480, 80)">
+    <rect x="0" y="0" width="200" height="95" fill="#f5f0e8" stroke="#0d1b2a" stroke-width="1" rx="4" opacity="0.9"/>
+    <line x1="15" y1="22" x2="55" y2="22" stroke="#2563eb" stroke-width="3"/>
+    <text x="65" y="26" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#0d1b2a">4-Year Degree</text>
+
+    <line x1="15" y1="47" x2="55" y2="47" stroke="#c9a84c" stroke-width="3"/>
+    <text x="65" y="51" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#0d1b2a">Self-Degree</text>
+
+    <line x1="15" y1="72" x2="55" y2="72" stroke="#16a34a" stroke-width="3"/>
+    <text x="65" y="76" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#0d1b2a">Coding Bootcamp</text>
+  </g>
+</svg>

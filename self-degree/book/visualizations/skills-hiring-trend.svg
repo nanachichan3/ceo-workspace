@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <title>Rise of Skills-First Hiring</title>
+  <desc>Line chart showing the growing percentage of employers prioritizing skills over degrees</desc>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="#f5f0e8"/>
+
+  <!-- Title -->
+  <text x="400" y="45" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="700" fill="#0d1b2a">Rise of Skills-First Hiring</text>
+
+  <!-- Y-axis -->
+  <line x1="100" y1="80" x2="100" y2="400" stroke="#0d1b2a" stroke-width="2"/>
+
+  <!-- Y-axis labels -->
+  <text x="90" y="405" text-anchor="end" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">0%</text>
+  <text x="90" y="330" text-anchor="end" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">25%</text>
+  <text x="90" y="255" text-anchor="end" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">50%</text>
+  <text x="90" y="180" text-anchor="end" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">75%</text>
+  <text x="90" y="105" text-anchor="end" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">100%</text>
+
+  <!-- Y-axis grid lines -->
+  <g stroke="#0d1b2a" stroke-width="1" stroke-dasharray="4,4" opacity="0.2">
+    <line x1="100" y1="330" x2="720" y2="330"/>
+    <line x1="100" y1="255" x2="720" y2="255"/>
+    <line x1="100" y1="180" x2="720" y2="180"/>
+  </g>
+
+  <!-- X-axis -->
+  <line x1="100" y1="400" x2="720" y2="400" stroke="#0d1b2a" stroke-width="2"/>
+
+  <!-- X-axis labels -->
+  <text x="100" y="425" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">2015</text>
+  <text x="220" y="425" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">2017</text>
+  <text x="340" y="425" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">2019</text>
+  <text x="460" y="425" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">2021</text>
+  <text x="580" y="425" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">2023</text>
+  <text x="700" y="425" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">2025</text>
+
+  <!-- Y-axis title -->
+  <text x="40" y="240" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#0d1b2a" transform="rotate(-90, 40, 240)">% of Employers</text>
+
+  <!-- Shaded area under the line -->
+  <!-- Scale: y=400 is 0%, y=105 is 100% -->
+  <!-- Points: 2015:45%, 2019:60%, 2023:75%, 2025:85% -->
+  <!-- 45% = 400 - (0.45 * 295) = 400 - 133 = 267 -->
+  <!-- 60% = 400 - (0.60 * 295) = 400 - 177 = 223 -->
+  <!-- 75% = 400 - (0.75 * 295) = 400 - 221 = 179 -->
+  <!-- 85% = 400 - (0.85 * 295) = 400 - 251 = 149 -->
+  <path d="M100,267
+           L220,245
+           L340,223
+           L460,201
+           L580,179
+           L700,149
+           L700,400 L100,400 Z"
+        fill="#c9a84c" opacity="0.2"/>
+
+  <!-- Rising line -->
+  <polyline points="100,267 220,245 340,223 460,201 580,179 700,149"
+            fill="none" stroke="#c9a84c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Data points -->
+  <circle cx="100" cy="267" r="6" fill="#c9a84c"/>
+  <text x="100" y="255" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#c9a84c">45%</text>
+
+  <circle cx="220" cy="245" r="6" fill="#c9a84c"/>
+  <text x="220" y="233" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#c9a84c">~53%</text>
+
+  <circle cx="340" cy="223" r="6" fill="#c9a84c"/>
+  <text x="340" y="211" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#c9a84c">60%</text>
+
+  <circle cx="460" cy="201" r="6" fill="#c9a84c"/>
+  <text x="460" y="189" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#c9a84c">~68%</text>
+
+  <circle cx="580" cy="179" r="6" fill="#c9a84c"/>
+  <text x="580" y="167" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#c9a84c">75%</text>
+
+  <circle cx="700" cy="149" r="8" fill="#c9a84c"/>
+  <text x="700" y="135" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#0d1b2a">85%</text>
+
+  <!-- Key insight callout -->
+  <rect x="500" y="60" width="200" height="45" fill="#c9a84c" rx="4"/>
+  <text x="600" y="85" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#0d1b2a">85% of employers</text>
+  <text x="600" y="100" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">prioritize skills (2025)</text>
+</svg>

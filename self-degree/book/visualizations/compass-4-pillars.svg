@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <title>The 4-Pillar Compass</title>
+  <desc>Self-Degree framework compass showing four pillars: Direction, Credentials, Network, and Resources</desc>
+
+  <defs>
+    <marker id="arrowGold" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c9a84c"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="#f5f0e8"/>
+
+  <!-- Title -->
+  <text x="400" y="40" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="700" fill="#0d1b2a">Self-Degree Framework</text>
+
+  <!-- Outer decorative compass circle -->
+  <circle cx="400" cy="260" r="180" fill="none" stroke="#0d1b2a" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.3"/>
+  <circle cx="400" cy="260" r="160" fill="none" stroke="#0d1b2a" stroke-width="1" opacity="0.2"/>
+
+  <!-- Cardinal direction lines -->
+  <line x1="400" y1="100" x2="400" y2="420" stroke="#0d1b2a" stroke-width="1" opacity="0.2"/>
+  <line x1="220" y1="260" x2="580" y2="260" stroke="#0d1b2a" stroke-width="1" opacity="0.2"/>
+
+  <!-- Diagonal lines -->
+  <line x1="273" y1="133" x2="527" y2="387" stroke="#0d1b2a" stroke-width="1" opacity="0.15"/>
+  <line x1="527" y1="133" x2="273" y2="387" stroke="#0d1b2a" stroke-width="1" opacity="0.15"/>
+
+  <!-- Gold arrows radiating from center -->
+  <g stroke="#c9a84c" stroke-width="2.5" fill="none">
+    <!-- North arrow -->
+    <path d="M400,260 L400,130" marker-end="url(#arrowGold)"/>
+    <!-- East arrow -->
+    <path d="M400,260 L530,260" marker-end="url(#arrowGold)"/>
+    <!-- South arrow -->
+    <path d="M400,260 L400,390" marker-end="url(#arrowGold)"/>
+    <!-- West arrow -->
+    <path d="M400,260 L270,260" marker-end="url(#arrowGold)"/>
+  </g>
+
+  <!-- Small decorative ticks on outer circle -->
+  <g stroke="#c9a84c" stroke-width="2">
+    <line x1="400" y1="80" x2="400" y2="90"/>
+    <line x1="400" y1="430" x2="400" y2="440"/>
+    <line x1="200" y1="260" x2="210" y2="260"/>
+    <line x1="590" y1="260" x2="600" y2="260"/>
+  </g>
+
+  <!-- NORTH - Direction -->
+  <g transform="translate(400, 100)">
+    <text x="0" y="-5" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#c9a84c">DIRECTION</text>
+    <text x="0" y="15" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">Career roadmaps, not</text>
+    <text x="0" y="28" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">standardized curricula</text>
+  </g>
+
+  <!-- EAST - Credentials -->
+  <g transform="translate(540, 260)">
+    <text x="15" y="-5" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#c9a84c">CREDENTIALS</text>
+    <text x="15" y="15" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">Achievements,</text>
+    <text x="15" y="28" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">certifications, transcripts</text>
+  </g>
+
+  <!-- SOUTH - Network -->
+  <g transform="translate(400, 420)">
+    <text x="0" y="-5" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#c9a84c">NETWORK</text>
+    <text x="0" y="15" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">Mentors + peers,</text>
+    <text x="0" y="28" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">online + in-person</text>
+  </g>
+
+  <!-- WEST - Resources -->
+  <g transform="translate(260, 260)">
+    <text x="-15" y="-5" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#c9a84c">RESOURCES</text>
+    <text x="-15" y="15" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">AI tutors, research</text>
+    <text x="-15" y="28" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#0d1b2a">papers, real projects</text>
+  </g>
+
+  <!-- Center circle with Self-Degree -->
+  <circle cx="400" cy="260" r="50" fill="#0d1b2a"/>
+  <text x="400" y="255" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#f5f0e8">Self-Degree</text>
+  <text x="400" y="272" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#c9a84c">4 Pillars</text>
+
+  <!-- Compass rose decorative points -->
+  <g fill="#c9a84c" opacity="0.6">
+    <polygon points="400,85 395,100 405,100"/>
+    <polygon points="400,435 395,420 405,420"/>
+    <polygon points="615,260 600,255 600,265"/>
+    <polygon points="185,260 200,255 200,265"/>
+  </g>
+</svg>

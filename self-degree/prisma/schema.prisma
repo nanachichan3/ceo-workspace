@@ -1,0 +1,183 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Auth & Users ────────────────────────────────────────────────────────────
+
+enum UserRole {
+  PARENT
+  ADMIN
+}
+
+model User {
+  id            String       @id @default(cuid())
+  email         String       @unique
+  name          String?
+  role          UserRole     @default(PARENT)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  ownedFamily   Family?
+  familyMembers FamilyMember[]
+}
+
+// ─── Family & Membership ─────────────────────────────────────────────────────
+
+model Family {
+  id          String         @id @default(cuid())
+  name        String
+  ownerUserId String         @unique
+  ownerUser   User           @relation(fields: [ownerUserId], references: [id])
+  createdAt   DateTime       @default(now())
+
+  members     FamilyMember[]
+  children    Child[]
+}
+
+enum FamilyMemberRole {
+  PARENT
+  CHILD
+}
+
+model FamilyMember {
+  id        String           @id @default(cuid())
+  familyId  String
+  userId    String
+  role      FamilyMemberRole
+  family    Family           @relation(fields: [familyId], references: [id])
+  user      User             @relation(fields: [userId], references: [id])
+
+  @@unique([familyId, userId])
+}
+
+// ─── Children ────────────────────────────────────────────────────────────────
+
+model Child {
+  id              String        @id @default(cuid())
+  familyId        String
+  family          Family        @relation(fields: [familyId], references: [id])
+  name            String
+  age             Int
+  learningProfile Json?         // interests, pace, learning style, strengths
+  avatarUrl       String?
+  xp              Int           @default(0)
+  level           Int           @default(1)
+  streak          Int           @default(0)
+  lastActivityAt  DateTime?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  progressEntries ProgressEntry[]
+  projects        Project[]
+  aiSessions      AISession[]
+  milestones      Milestone[]
+  dailyStreaks    DailyStreak[]
+}
+
+// ─── Progress Tracking ───────────────────────────────────────────────────────
+
+enum ProgressType {
+  READING
+  PROJECT
+  CONVERSATION
+  EXPLORATION
+  PRACTICE
+  OTHER
+}
+
+model ProgressEntry {
+  id           String       @id @default(cuid())
+  childId      String
+  child        Child        @relation(fields: [childId], references: [id])
+  date         DateTime     @default(now())
+  type         ProgressType
+  subject      String?
+  description  String
+  artifactsUrl String[]     // URLs to uploaded files / photos
+  xpEarned     Int          @default(0)
+  createdAt    DateTime     @default(now())
+}
+
+// ─── Projects ───────────────────────────────────────────────────────────────
+
+enum ProjectStatus {
+  IDEATION
+  IN_PROGRESS
+  COMPLETED
+  ABANDONED
+}
+
+model Project {
+  id           String        @id @default(cuid())
+  childId      String
+  child        Child         @relation(fields: [childId], references: [id])
+  name         String
+  description  String
+  status       ProjectStatus @default(IDEATION)
+  artifactsUrl String[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+// ─── AI Sessions ─────────────────────────────────────────────────────────────
+
+model AISession {
+  id         String   @id @default(cuid())
+  childId    String
+  child      Child    @relation(fields: [childId], references: [id])
+  date       DateTime @default(now())
+  duration   Int      // seconds
+  tokensUsed Int
+  topic      String?
+  summary    String?
+  createdAt  DateTime @default(now())
+}
+
+// ─── XP & Milestones ────────────────────────────────────────────────────────
+
+model Milestone {
+  id        String   @id @default(cuid())
+  childId   String
+  child     Child    @relation(fields: [childId], references: [id])
+  name      String   // e.g. "First 100 XP", "7-Day Streak"
+  desc      String?  // description of the achievement
+  icon      String?  // emoji or icon identifier
+  xpReward  Int      @default(0)
+  achievedAt DateTime @default(now())
+}
+
+model DailyStreak {
+  id        String   @id @default(cuid())
+  childId   String
+  child     Child    @relation(fields: [childId], references: [id])
+  date      DateTime @default(now()) // the date the streak was recorded
+  xpEarned  Int      @default(0)
+  createdAt DateTime @default(now())
+
+  @@unique([childId, date])
+}
+
+// ─── Waitlist ────────────────────────────────────────────────────────────────
+
+enum WaitlistStatus {
+  PENDING
+  INVITED
+  CONVERTED
+  EXPIRED
+}
+
+model WaitlistEntry {
+  id       String         @id @default(cuid())
+  email    String         @unique
+  source   String?        // e.g. "book", "twitter", "friend"
+  status   WaitlistStatus @default(PENDING)
+  joinedAt DateTime       @default(now())
+}
