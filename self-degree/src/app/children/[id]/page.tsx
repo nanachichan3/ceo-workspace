@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useEffect, useState, use } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@supabase/supabase-js";
+import type { User } from "@supabase/supabase-js";
 
 function getSupabase() {
   return createClient(
@@ -12,105 +13,152 @@ function getSupabase() {
   );
 }
 
+type ProgressType = "READING" | "PROJECT" | "CONVERSATION" | "EXPLORATION" | "PRACTICE" | "OTHER";
+type ProjectStatus = "IDEATION" | "IN_PROGRESS" | "COMPLETED" | "ABANDONED";
+
 interface ProgressEntry {
   id: string;
-  type: string;
-  subject?: string;
+  date: string;
+  type: ProgressType;
+  subject: string | null;
   description: string;
   xpEarned: number;
-  date: string;
+}
+
+interface Project {
+  id: string;
+  name: string;
+  description: string;
+  status: ProjectStatus;
+  createdAt: string;
 }
 
 interface Child {
   id: string;
   name: string;
   age: number;
-  avatarUrl?: string;
+  avatarUrl: string | null;
+  xp: number;
+  level: number;
   progressEntries: ProgressEntry[];
-  _count?: { projects: number };
+  projects: Project[];
 }
 
-const TYPE_ICONS: Record<string, string> = {
-  READING: "📖",
-  PROJECT: "🚀",
-  CONVERSATION: "💬",
-  EXPLORATION: "🔭",
-  PRACTICE: "🎯",
-  OTHER: "✨",
+const PROGRESS_TYPE_LABELS: Record<ProgressType, string> = {
+  READING: "📖 Reading",
+  PROJECT: "🚀 Project",
+  CONVERSATION: "💬 Conversation",
+  EXPLORATION: "🔍 Exploration",
+  PRACTICE: "🎯 Practice",
+  OTHER: "✨ Other",
 };
 
-export default function ChildPage() {
-  const { id } = useParams<{ id: string }>();
-  const router = useRouter();
+const PROJECT_STATUS_BADGES: Record<ProjectStatus, { label: string; color: string }> = {
+  IDEATION: { label: "Ideation", color: "bg-blue-500/20 text-blue-400 border-blue-500/30" },
+  IN_PROGRESS: { label: "In Progress", color: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30" },
+  COMPLETED: { label: "Completed", color: "bg-green-500/20 text-green-400 border-green-500/30" },
+  ABANDONED: { label: "Abandoned", color: "bg-gray-500/20 text-gray-400 border-gray-500/30" },
+};
+
+export default function ChildProgressPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params);
+  const [user, setUser] = useState<User | null>(null);
   const [child, setChild] = useState<Child | null>(null);
   const [loading, setLoading] = useState(true);
-  const [session, setSession] = useState<{ access_token: string } | null>(null);
-
-  const [showForm, setShowForm] = useState(false);
-  const [logType, setLogType] = useState<keyof typeof TYPE_ICONS>("PROJECT");
-  const [logSubject, setLogSubject] = useState("");
-  const [logDesc, setLogDesc] = useState("");
-  const [logging, setLogging] = useState(false);
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [formType, setFormType] = useState<ProgressType>("OTHER");
+  const [formSubject, setFormSubject] = useState("");
+  const [formDescription, setFormDescription] = useState("");
+  const [formXp, setFormXp] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [formError, setFormError] = useState("");
+  const router = useRouter();
 
   useEffect(() => {
-    async function load() {
-      const {
-        data: { session: authSession },
-      } = await getSupabase().auth.getSession();
+    getSupabase()
+      .auth.getSession()
+      .then(async ({ data: { session } }) => {
+        if (!session) {
+          router.push("/auth/login");
+          return;
+        }
+        setUser(session.user);
 
-      if (!authSession) {
-        router.push("/auth/login");
-        return;
-      }
+        const res = await fetch(`/api/children/${id}`, {
+          headers: { Authorization: `Bearer ${session.access_token}` },
+        });
 
-      setSession(authSession as { access_token: string });
-
-      const res = await fetch(`/api/children/${id}`, {
-        headers: { Authorization: `Bearer ${authSession.access_token}` },
+        if (res.ok) {
+          const data = await res.json();
+          setChild(data.child);
+        } else if (res.status === 404) {
+          router.push("/dashboard");
+        }
+        setLoading(false);
       });
-
-      if (!res.ok) {
-        router.push("/dashboard");
-        return;
-      }
-
-      const data = await res.json();
-      setChild(data.child);
-      setLoading(false);
-    }
-    load();
   }, [id, router]);
 
-  async function handleLog(e: React.FormEvent) {
+  async function handleAddEntry(e: React.FormEvent) {
     e.preventDefault();
-    if (!logDesc.trim() || !session) return;
-
-    setLogging(true);
-    const res = await fetch(`/api/children/${id}/progress`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${session.access_token}`,
-      },
-      body: JSON.stringify({
-        type: logType,
-        subject: logSubject || null,
-        description: logDesc,
-      }),
-    });
-
-    if (res.ok) {
-      const data = await res.json();
-      setChild((prev) =>
-        prev
-          ? { ...prev, progressEntries: [data.entry, ...prev.progressEntries] }
-          : prev
-      );
-      setShowForm(false);
-      setLogDesc("");
-      setLogSubject("");
+    if (!formDescription.trim()) {
+      setFormError("Description is required.");
+      return;
     }
-    setLogging(false);
+
+    setSubmitting(true);
+    setFormError("");
+
+    try {
+      const {
+        data: { session },
+      } = await getSupabase().auth.getSession();
+      if (!session) return;
+
+      const res = await fetch(`/api/children/${id}/progress`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session.access_token}`,
+        },
+        body: JSON.stringify({
+          type: formType,
+          subject: formSubject.trim() || null,
+          description: formDescription.trim(),
+          xpEarned: formXp ? parseInt(formXp) : 0,
+        }),
+      });
+
+      if (res.ok) {
+        // Reload child data
+        const childRes = await fetch(`/api/children/${id}`, {
+          headers: { Authorization: `Bearer ${session.access_token}` },
+        });
+        if (childRes.ok) {
+          const data = await childRes.json();
+          setChild(data.child);
+        }
+        setShowAddForm(false);
+        setFormSubject("");
+        setFormDescription("");
+        setFormXp("");
+        setFormType("OTHER");
+      } else {
+        const data = await res.json();
+        setFormError(data.error || "Failed to add entry.");
+      }
+    } catch {
+      setFormError("Something went wrong.");
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  function formatDate(dateStr: string) {
+    return new Date(dateStr).toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
   }
 
   if (loading) {
@@ -121,201 +169,180 @@ export default function ChildPage() {
     );
   }
 
-  if (!child) return null;
-
-  const totalXp = child.progressEntries.reduce((sum, e) => sum + e.xpEarned, 0);
+  if (!child) {
+    return (
+      <div className="min-h-screen bg-navy-900 flex items-center justify-center">
+        <div className="text-gray-400">Child not found.</div>
+      </div>
+    );
+  }
 
   return (
     <main className="min-h-screen bg-navy-900">
       <header className="border-b border-navy-700 px-6 py-4">
-        <div className="max-w-4xl mx-auto flex items-center gap-4">
-          <Link href="/dashboard" className="text-gray-400 hover:text-white text-sm">
-            ← Dashboard
+        <div className="max-w-5xl mx-auto flex items-center justify-between">
+          <Link href="/dashboard" className="text-gold-500 font-bold text-lg">
+            Self-Degree
           </Link>
-          <span className="text-gray-600">/</span>
-          <span className="text-white font-medium">{child.name}</span>
+          <Link
+            href={`/children/${id}/ai-tutor`}
+            className="px-4 py-2 bg-gold-500/20 text-gold-500 text-sm font-semibold rounded-lg hover:bg-gold-500/30 transition-colors"
+          >
+            🤖 AI Tutor
+          </Link>
         </div>
       </header>
 
-      <div className="max-w-4xl mx-auto px-6 py-10">
-        {/* Child Card */}
-        <div className="bg-navy-800 border border-navy-700 rounded-xl p-8 mb-8">
-          <div className="flex items-start gap-6">
-            <div className="w-20 h-20 bg-gold-500/20 rounded-full flex items-center justify-center text-4xl shrink-0">
-              {child.avatarUrl ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={child.avatarUrl}
-                  alt={child.name}
-                  className="w-full h-full rounded-full object-cover"
-                />
-              ) : (
-                "🎓"
-              )}
+      <div className="max-w-5xl mx-auto px-6 py-10">
+        {/* Child Header */}
+        <div className="flex items-center gap-5 mb-10">
+          <div className="w-20 h-20 bg-gold-500/20 rounded-full flex items-center justify-center text-3xl">
+            {child.avatarUrl ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={child.avatarUrl} alt={child.name} className="w-full h-full rounded-full object-cover" />
+            ) : (
+              "🎓"
+            )}
+          </div>
+          <div>
+            <h1 className="text-2xl font-bold text-white">{child.name}</h1>
+            <p className="text-gray-400">Age {child.age}</p>
+            <div className="flex gap-4 mt-1.5">
+              <span className="text-sm text-gold-500">⭐ {child.xp} XP</span>
+              <span className="text-sm text-gray-500">Level {child.level}</span>
             </div>
-            <div className="flex-1">
-              <h1 className="text-2xl font-bold text-white">{child.name}</h1>
-              <p className="text-gray-400">Age {child.age}</p>
-              <div className="flex gap-6 mt-4">
-                <div>
-                  <div className="text-2xl font-bold text-gold-500">{totalXp}</div>
-                  <div className="text-gray-500 text-sm">Total XP</div>
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-white">
-                    {child.progressEntries.length}
-                  </div>
-                  <div className="text-gray-500 text-sm">Entries</div>
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-white">
-                    {child._count?.projects ?? 0}
-                  </div>
-                  <div className="text-gray-500 text-sm">Projects</div>
-                </div>
-              </div>
-            </div>
-            <Link
-              href={`/children/${child.id}/ai-tutor`}
-              className="px-5 py-2.5 bg-gold-500 text-navy-900 font-semibold rounded-lg hover:bg-gold-400 transition-colors shrink-0"
-            >
-              🤖 AI Tutor
-            </Link>
           </div>
         </div>
 
-        {/* Progress Timeline */}
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-bold text-white">Learning Timeline</h2>
-          <button
-            onClick={() => setShowForm(!showForm)}
-            className="px-4 py-2 text-sm bg-navy-800 border border-navy-600 text-gray-300 rounded-lg hover:border-gold-500 transition-colors"
-          >
-            {showForm ? "Cancel" : "+ Log Progress"}
-          </button>
-        </div>
+        <div className="grid lg:grid-cols-3 gap-8">
+          {/* Progress Timeline */}
+          <div className="lg:col-span-2">
+            <div className="flex items-center justify-between mb-5">
+              <h2 className="text-xl font-semibold text-white">Progress</h2>
+              <button
+                onClick={() => setShowAddForm((v) => !v)}
+                className="px-4 py-2 bg-gold-500 text-navy-900 text-sm font-semibold rounded-lg hover:bg-gold-400 transition-colors"
+              >
+                {showAddForm ? "Cancel" : "+ Add Entry"}
+              </button>
+            </div>
 
-        {/* Log Form */}
-        {showForm && (
-          <form
-            onSubmit={handleLog}
-            className="bg-navy-800 border border-navy-700 rounded-xl p-6 mb-6 space-y-4"
-          >
-            <div className="grid md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">
-                  Type
-                </label>
-                <select
-                  value={logType}
-                  onChange={(e) =>
-                    setLogType(e.target.value as keyof typeof TYPE_ICONS)
-                  }
-                  className="w-full px-3 py-2 bg-navy-900 border border-navy-600 rounded-lg text-white"
+            {showAddForm && (
+              <form onSubmit={handleAddEntry} className="mb-8 p-5 bg-navy-800 border border-navy-700 rounded-xl space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-1">Type</label>
+                  <select
+                    value={formType}
+                    onChange={(e) => setFormType(e.target.value as ProgressType)}
+                    className="w-full px-3 py-2 bg-navy-700 border border-navy-600 rounded-lg text-white"
+                  >
+                    {Object.entries(PROGRESS_TYPE_LABELS).map(([val, label]) => (
+                      <option key={val} value={val}>{label}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-1">Subject <span className="text-gray-500 text-xs">(optional)</span></label>
+                  <input
+                    type="text"
+                    value={formSubject}
+                    onChange={(e) => setFormSubject(e.target.value)}
+                    placeholder="e.g. Ancient Egypt"
+                    className="w-full px-3 py-2 bg-navy-700 border border-navy-600 rounded-lg text-white placeholder-gray-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-1">What happened?</label>
+                  <textarea
+                    value={formDescription}
+                    onChange={(e) => setFormDescription(e.target.value)}
+                    placeholder="Describe what they learned or did..."
+                    rows={3}
+                    required
+                    className="w-full px-3 py-2 bg-navy-700 border border-navy-600 rounded-lg text-white placeholder-gray-500 resize-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-1">XP Earned</label>
+                  <input
+                    type="number"
+                    value={formXp}
+                    onChange={(e) => setFormXp(e.target.value)}
+                    placeholder="0"
+                    min="0"
+                    className="w-full px-3 py-2 bg-navy-700 border border-navy-600 rounded-lg text-white placeholder-gray-500"
+                  />
+                </div>
+                {formError && <p className="text-red-400 text-sm">{formError}</p>}
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="w-full py-2 bg-gold-500 text-navy-900 font-semibold rounded-lg hover:bg-gold-400 transition-colors disabled:opacity-50"
                 >
-                  {Object.entries(TYPE_ICONS).map(([key, icon]) => (
-                    <option key={key} value={key}>
-                      {icon} {key}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">
-                  Subject (optional)
-                </label>
-                <input
-                  value={logSubject}
-                  onChange={(e) => setLogSubject(e.target.value)}
-                  placeholder="Math, Drawing, Minecraft..."
-                  className="w-full px-3 py-2 bg-navy-900 border border-navy-600 rounded-lg text-white placeholder-gray-500"
-                />
-              </div>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">
-                Description
-              </label>
-              <textarea
-                value={logDesc}
-                onChange={(e) => setLogDesc(e.target.value)}
-                placeholder="What happened? What did they learn or discover?"
-                rows={4}
-                required
-                className="w-full px-3 py-2 bg-navy-900 border border-navy-600 rounded-lg text-white placeholder-gray-500 resize-none"
-              />
-            </div>
-            <div className="flex justify-end gap-3">
-              <button
-                type="button"
-                onClick={() => setShowForm(false)}
-                className="px-4 py-2 text-sm text-gray-400 hover:text-white"
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                disabled={logging}
-                className="px-5 py-2 bg-gold-500 text-navy-900 font-semibold rounded-lg hover:bg-gold-400 transition-colors disabled:opacity-50"
-              >
-                {logging ? "Saving..." : "Save Entry (+10 XP)"}
-              </button>
-            </div>
-          </form>
-        )}
+                  {submitting ? "Saving..." : "Save Entry"}
+                </button>
+              </form>
+            )}
 
-        {/* Timeline */}
-        {child.progressEntries.length === 0 ? (
-          <div className="bg-navy-800 border border-navy-700 rounded-xl p-12 text-center">
-            <div className="text-4xl mb-4">🌱</div>
-            <h3 className="text-lg font-semibold text-white mb-2">
-              No entries yet
-            </h3>
-            <p className="text-gray-400">
-              Start logging learning moments to build the portfolio.
-            </p>
-          </div>
-        ) : (
-          <div className="space-y-4">
-            {child.progressEntries.map((entry) => (
-              <div
-                key={entry.id}
-                className="bg-navy-800 border border-navy-700 rounded-xl p-5"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-navy-700 rounded-lg flex items-center justify-center text-xl shrink-0">
-                    {TYPE_ICONS[entry.type] ?? "✨"}
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-1">
-                      <span className="text-white font-medium text-sm">
-                        {entry.type}
-                      </span>
-                      {entry.subject && (
-                        <span className="text-gold-500/80 text-xs bg-gold-500/10 px-2 py-0.5 rounded">
-                          {entry.subject}
-                        </span>
-                      )}
-                      <span className="text-gray-600 text-xs ml-auto">
-                        +{entry.xpEarned} XP
-                      </span>
-                    </div>
-                    <p className="text-gray-300 text-sm leading-relaxed">
-                      {entry.description}
-                    </p>
-                    <p className="text-gray-600 text-xs mt-2">
-                      {new Date(entry.date).toLocaleDateString("en-US", {
-                        month: "short",
-                        day: "numeric",
-                        year: "numeric",
-                      })}
-                    </p>
-                  </div>
-                </div>
+            {child.progressEntries.length === 0 ? (
+              <div className="bg-navy-800 border border-navy-700 rounded-xl p-8 text-center">
+                <p className="text-gray-400">No progress entries yet. Add one above!</p>
               </div>
-            ))}
+            ) : (
+              <div className="space-y-4">
+                {child.progressEntries.map((entry) => (
+                  <div key={entry.id} className="bg-navy-800 border border-navy-700 rounded-xl p-5">
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <span className="inline-block px-2.5 py-1 text-xs font-medium bg-gold-500/20 text-gold-500 rounded-full mb-2">
+                          {PROGRESS_TYPE_LABELS[entry.type]}
+                        </span>
+                        {entry.subject && (
+                          <p className="text-gold-400 text-sm font-medium mb-1">{entry.subject}</p>
+                        )}
+                        <p className="text-gray-200 text-sm leading-relaxed">{entry.description}</p>
+                      </div>
+                      <div className="text-right flex-shrink-0 ml-4">
+                        {entry.xpEarned > 0 && (
+                          <span className="text-gold-500 text-sm font-medium">+{entry.xpEarned} XP</span>
+                        )}
+                        <p className="text-gray-500 text-xs mt-1">{formatDate(entry.date)}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
-        )}
+
+          {/* Sidebar: Projects */}
+          <div>
+            <h2 className="text-xl font-semibold text-white mb-5">Projects</h2>
+            {child.projects.length === 0 ? (
+              <div className="bg-navy-800 border border-navy-700 rounded-xl p-6 text-center">
+                <p className="text-gray-400 text-sm">No projects yet.</p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {child.projects.map((project) => {
+                  const badge = PROJECT_STATUS_BADGES[project.status];
+                  return (
+                    <div key={project.id} className="bg-navy-800 border border-navy-700 rounded-xl p-4">
+                      <div className="flex items-start justify-between gap-2 mb-1">
+                        <h3 className="text-white font-medium text-sm">{project.name}</h3>
+                        <span className={`text-xs px-2 py-0.5 rounded-full border flex-shrink-0 ${badge.color}`}>
+                          {badge.label}
+                        </span>
+                      </div>
+                      <p className="text-gray-400 text-xs leading-relaxed">{project.description}</p>
+                      <p className="text-gray-600 text-xs mt-2">{formatDate(project.createdAt)}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </main>
   );
